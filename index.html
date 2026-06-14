@@ -46,6 +46,20 @@
 .hero-cta-row{
   margin-top:42px;display:flex;gap:18px;justify-content:center;flex-wrap:wrap;
 }
+@media (max-width:600px){
+  .hero{height:100vh;min-height:560px}
+  .hero-content{padding:0 6vw}
+  .hero-content .eyebrow-line{font-size:11px;letter-spacing:.22em;margin-bottom:14px}
+  .hero-content h1{font-size:clamp(40px,13vw,64px);line-height:1.04}
+  .hero-content .sub{
+    margin-top:14px;font-size:14px;line-height:1.5;
+    max-width:340px;
+  }
+  .hero-cta-row{margin-top:24px;gap:12px}
+  .hero-cta-row .btn{padding:13px 24px;font-size:11px}
+  .scroll-cue{bottom:30px}
+  .scroll-cue .line{height:22px}
+}
 .hero-swoosh{
   position:absolute;bottom:38px;left:50%;transform:translateX(-50%);
   z-index:2;
@@ -197,7 +211,7 @@
 
 <!-- HERO -->
 <div class="hero">
-  <video autoplay muted loop playsinline poster="images/Facetune_04-06-2026-07-32-50.jpg">
+  <video id="heroVideo" autoplay muted loop playsinline webkit-playsinline="true" preload="auto" poster="images/Facetune_04-06-2026-07-32-50.jpg">
     <source src="video/hero.mp4" type="video/mp4">
   </video>
   <div class="hero-content">
@@ -329,6 +343,31 @@
 window.addEventListener('scroll',()=>{
   document.getElementById('nav').classList.toggle('scrolled', window.scrollY>40);
 });
+
+// iOS Safari sometimes blocks autoplay on first load - force play as fallback
+const heroVideo = document.getElementById('heroVideo');
+if(heroVideo){
+  const tryPlay = () => {
+    const playPromise = heroVideo.play();
+    if(playPromise !== undefined){
+      playPromise.catch(()=>{
+        // Autoplay blocked - try again on first user interaction
+        const resume = () => {
+          heroVideo.play();
+          document.removeEventListener('touchstart', resume);
+          document.removeEventListener('click', resume);
+        };
+        document.addEventListener('touchstart', resume, {once:true});
+        document.addEventListener('click', resume, {once:true});
+      });
+    }
+  };
+  if(heroVideo.readyState >= 2){
+    tryPlay();
+  } else {
+    heroVideo.addEventListener('loadeddata', tryPlay, {once:true});
+  }
+}
 </script>
 </body>
 </html>
