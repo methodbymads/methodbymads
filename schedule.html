@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Schedule — Method by mads</title>
+<meta name="description" content="Find Mads' Pilates class schedule — studio classes and special events.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Mulish:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+/* ===== SCHEDULE-SPECIFIC ===== */
+.filter-row{
+  display:flex;justify-content:center;margin-bottom:50px;
+  flex-wrap:wrap;
+}
+.filter-btn{
+  background:var(--cream);border:1.5px solid var(--line);
+  border-radius:30px;padding:11px 26px;
+  font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;
+  font-weight:700;color:var(--taupe);
+  margin:0 6px 10px;transition:.25s ease;
+}
+.filter-btn.active,.filter-btn:hover{
+  background:var(--charcoal);color:var(--cream);border-color:var(--charcoal);
+}
+
+/* Class cards */
+.class-list{
+  max-width:880px;margin:0 auto;
+  display:flex;flex-direction:column;gap:16px;
+}
+.class-card{
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--cream);border:1px solid var(--line);
+  border-radius:16px;padding:26px 30px;
+  transition:.25s ease;flex-wrap:wrap;gap:18px;
+}
+.class-card:hover{
+  border-color:var(--gold);box-shadow:0 10px 30px rgba(58,53,47,.06);
+  transform:translateY(-2px);
+}
+.class-card .day-block{
+  min-width:90px;text-align:center;
+  border-right:1px solid var(--line);padding-right:22px;
+}
+.class-card .day-block .day{
+  font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold);font-weight:700;margin-bottom:4px;
+}
+.class-card .day-block .time{
+  font-family:var(--serif);font-size:21px;font-weight:500;
+}
+.class-card .info{flex:1;padding:0 10px;min-width:200px}
+.class-card .info h3{
+  font-family:var(--serif);font-weight:500;font-size:21px;margin-bottom:4px;
+}
+.class-card .info .meta{
+  font-size:13.5px;color:var(--taupe);
+}
+.class-card .info .meta .dot{margin:0 8px}
+.class-card .tag{
+  font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;
+  font-weight:700;padding:5px 12px;border-radius:14px;
+  margin-bottom:8px;display:inline-block;
+}
+.tag-studio{background:rgba(168,156,140,.18);color:var(--taupe)}
+.tag-event{background:var(--gold-soft);color:var(--gold)}
+
+@media (max-width:640px){
+  .class-card{padding:22px}
+  .class-card .day-block{
+    border-right:none;border-bottom:1px solid var(--line);
+    padding-right:0;padding-bottom:12px;width:100%;text-align:left;
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .class-card .info{padding:0;width:100%}
+}
+
+/* Legend */
+.legend{
+  display:flex;justify-content:center;flex-wrap:wrap;
+}
+.legend-item{
+  display:flex;align-items:center;font-size:13px;color:var(--taupe);
+  margin:0 15px 10px;
+}
+.legend-dot{
+  width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:8px;
+}
+.legend-dot.studio{background:var(--taupe)}
+.legend-dot.event{background:var(--gold)}
+
+/* Note box */
+.note-box{
+  max-width:760px;margin:70px auto 0;
+  text-align:center;padding:40px;
+  background:var(--greige);border-radius:16px;
+}
+.note-box p{font-size:15px;color:var(--taupe)}
+.note-box strong{color:var(--charcoal)}
+</style>
+</head>
+<body>
+
+<nav class="site-nav" id="nav">
+  <a href="index.html" class="nav-logo">Method <span>By Mads &nbsp;·&nbsp; Thoughts in Motion</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="schedule.html" class="active">Schedule</a>
+    <a href="events.html">Events</a>
+    <a href="coaching.html">Coaching</a>
+    <a href="events.html#book" class="nav-cta">Book Now</a>
+  </div>
+  <button class="nav-burger" onclick="document.getElementById('mmenu').classList.add('open')">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mmenu">
+  <button class="close-menu" onclick="document.getElementById('mmenu').classList.remove('open')">&times;</button>
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="schedule.html">Schedule</a>
+  <a href="events.html">Events</a>
+  <a href="coaching.html">Coaching</a>
+  <a href="events.html#book">Book Now</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="eyebrow">Where to Find Me</div>
+  <h1>Weekly <em>Schedule</em></h1>
+  <p class="lead">Studio classes and special events, all in one place. Studio classes link directly to that studio's booking page — special events you can reserve right here with me.</p>
+</div>
+
+<!-- FILTERS -->
+<section class="section tight">
+  <div class="filter-row">
+    <button class="filter-btn active" data-filter="all">All Classes</button>
+    <button class="filter-btn" data-filter="studio">Studio Classes</button>
+    <button class="filter-btn" data-filter="event">My Events</button>
+  </div>
+
+  <div class="class-list" id="classList">
+
+    <!-- Beforme Pilates -->
+    <div class="class-card" data-type="studio">
+      <div class="day-block">
+        <div class="day">Mon</div>
+        <div class="time">9:00 AM</div>
+      </div>
+      <div class="info">
+        <span class="tag tag-studio">Studio Class</span>
+        <h3>Mat Pilates</h3>
+        <div class="meta">Beforme Pilates <span class="dot">·</span> All Levels <span class="dot">·</span> 50 min</div>
+      </div>
+      <a href="https://www.mindbodyonline.com/explore/locations/beforme-pilates" target="_blank" rel="noopener" class="btn btn-outline">Book at Beforme →</a>
+    </div>
+
+    <div class="class-card" data-type="studio">
+      <div class="day-block">
+        <div class="day">Wed</div>
+        <div class="time">6:00 PM</div>
+      </div>
+      <div class="info">
+        <span class="tag tag-studio">Studio Class</span>
+        <h3>Mat Pilates</h3>
+        <div class="meta">Beforme Pilates <span class="dot">·</span> All Levels <span class="dot">·</span> 50 min</div>
+      </div>
+      <a href="https://www.mindbodyonline.com/explore/locations/beforme-pilates" target="_blank" rel="noopener" class="btn btn-outline">Book at Beforme →</a>
+    </div>
+
+    <div class="class-card" data-type="studio">
+      <div class="day-block">
+        <div class="day">Fri</div>
+        <div class="time">8:00 AM</div>
+      </div>
+      <div class="info">
+        <span class="tag tag-studio">Studio Class</span>
+        <h3>Mat Pilates</h3>
+        <div class="meta">Beforme Pilates <span class="dot">·</span> All Levels <span class="dot">·</span> 50 min</div>
+      </div>
+      <a href="https://www.mindbodyonline.com/explore/locations/beforme-pilates" target="_blank" rel="noopener" class="btn btn-outline">Book at Beforme →</a>
+    </div>
+
+    <!-- Special Events -->
+    <div class="class-card" data-type="event">
+      <div class="day-block">
+        <div class="day">Jul 12</div>
+        <div class="time">2:00 PM</div>
+      </div>
+      <div class="info">
+        <span class="tag tag-event">Special Event</span>
+        <h3>Pilates Pool Party</h3>
+        <div class="meta">Beauharnois, QC <span class="dot">·</span> $30 <span class="dot">·</span> METHOD x Posh Palates</div>
+      </div>
+      <a href="events.html#pool-party" class="btn btn-dark">Reserve Spot →</a>
+    </div>
+
+    <div class="class-card" data-type="event">
+      <div class="day-block">
+        <div class="day">TBA</div>
+        <div class="time">Soon</div>
+      </div>
+      <div class="info">
+        <span class="tag tag-event">Special Event</span>
+        <h3>Pilates in the Park</h3>
+        <div class="meta">Location TBA <span class="dot">·</span> Outdoor mat session <span class="dot">·</span> Date Coming Soon</div>
+      </div>
+      <a href="events.html#park" class="btn btn-outline">Learn More →</a>
+    </div>
+
+  </div>
+
+  <!-- LEGEND -->
+  <div class="legend" style="margin-top:50px">
+    <div class="legend-item"><span class="legend-dot studio"></span>Studio Classes — book directly with the studio</div>
+    <div class="legend-item"><span class="legend-dot event"></span>My Events — reserve directly with me</div>
+  </div>
+
+  <!-- NOTE -->
+  <div class="note-box">
+    <p>Schedule subject to change week to week. <strong>Follow on Instagram</strong> for the most up-to-date class times, or check back here — this page is updated regularly as I add new studios and events.</p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section section-greige" style="text-align:center">
+  <h2 class="section-title">Hosting at a <em>studio?</em></h2>
+  <p class="section-lead">If you run a studio and would like METHOD by mads on your schedule, I'd love to connect.</p>
+  <a href="mailto:hello@methodbymads.com" class="btn btn-dark">Get In Touch</a>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="nav-logo">Method <span>By Mads</span></div>
+      <div class="footer-tagline">"Thoughts in Motion" — movement, mindset &amp; motherhood, woven together.</div>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <a href="about.html">About</a>
+      <a href="schedule.html">Schedule</a>
+      <a href="events.html">Events</a>
+      <a href="coaching.html">Coaching</a>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
+      <a href="mailto:hello@methodbymads.com">hello@methodbymads.com</a>
+      <p>Montréal &amp; surrounding area, QC</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Method By Mads</span>
+    <span>Thoughts in Motion</span>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY>40);
+});
+
+// Filters
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    document.querySelectorAll('.class-card').forEach(card=>{
+      if(filter==='all' || card.dataset.type===filter){
+        card.style.display='flex';
+      }else{
+        card.style.display='none';
+      }
+    });
+  });
+});
+</script>
+</body>
+</html>

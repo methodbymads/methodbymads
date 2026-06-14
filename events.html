@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Events — Method by mads</title>
+<meta name="description" content="Special pop-up Pilates events with Mads — Pilates Pool Party, Pilates in the Park, and private sessions.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Mulish:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+/* ===== EVENTS-SPECIFIC ===== */
+
+/* Event hero card */
+.event-block{
+  max-width:1200px;margin:0 auto 110px;
+  display:grid;grid-template-columns:1fr 1fr;
+  border-radius:22px;overflow:hidden;
+  border:1px solid var(--line);
+}
+.event-block.reverse{direction:rtl}
+.event-block.reverse > *{direction:ltr}
+.event-media{position:relative;min-height:480px}
+.event-media img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+}
+.event-media .event-badge{
+  position:absolute;top:24px;left:24px;z-index:2;
+}
+.event-body{
+  background:var(--cream);padding:56px 50px;
+  display:flex;flex-direction:column;justify-content:center;
+}
+.event-body .eyebrow{text-align:left;margin-bottom:10px}
+.event-body h2{
+  font-family:var(--serif);font-weight:500;
+  font-size:clamp(28px,4vw,42px);line-height:1.1;margin-bottom:6px;
+}
+.event-body h2 em{font-style:italic;color:var(--gold);font-weight:400}
+.event-body .price{
+  font-family:var(--serif);font-size:34px;color:var(--charcoal);margin:14px 0;
+}
+.event-body .price sup{font-size:16px;vertical-align:10px;color:var(--taupe)}
+.event-body p.desc{font-size:15.5px;color:var(--taupe);margin-bottom:22px;line-height:1.7}
+.event-pills{display:flex;flex-wrap:wrap;margin-bottom:26px}
+.event-pill{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--greige);border-radius:20px;
+  padding:8px 16px;font-size:12.5px;font-weight:600;color:var(--charcoal);
+  margin:0 8px 8px 0;
+}
+
+@media (max-width:880px){
+  .event-block,.event-block.reverse{grid-template-columns:1fr;direction:ltr}
+  .event-media{min-height:320px}
+  .event-body{padding:40px 30px}
+}
+
+/* Booking form (Pool Party) */
+.booking-card{
+  background:var(--greige);border-radius:18px;padding:34px;
+  margin-top:6px;
+}
+.booking-card .field{margin-bottom:14px}
+.booking-card .field label{
+  display:block;font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--taupe);margin-bottom:7px;font-weight:700;
+}
+.booking-card .field input{
+  width:100%;padding:13px 14px;border:1.5px solid var(--line);
+  border-radius:10px;background:var(--cream);font-family:var(--sans);
+  font-size:14.5px;color:var(--charcoal);transition:.25s;
+}
+.booking-card .field input:focus{outline:none;border-color:var(--gold)}
+.booking-card .err{color:#9a3b22;font-size:12.5px;margin-top:8px;text-align:center;min-height:16px}
+.booking-card .secure{text-align:center;font-size:11px;color:var(--taupe);margin-top:10px}
+.booking-done{display:none;text-align:center;padding:10px 0}
+.booking-done.show{display:block;animation:fade .4s}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.booking-done .tick{
+  width:58px;height:58px;border-radius:50%;
+  background:var(--gold);color:var(--cream);
+  display:flex;align-items:center;justify-content:center;
+  font-size:24px;margin:0 auto 14px;
+}
+.booking-done h3{font-family:var(--serif);font-weight:500;font-size:22px;margin-bottom:8px}
+.booking-done p{color:var(--taupe);font-size:14px}
+
+/* Coming soon block */
+.soon-block{
+  text-align:center;padding:60px 40px;
+  background:var(--greige);border-radius:18px;
+}
+.soon-block .badge{margin-bottom:18px}
+.soon-block h3{font-family:var(--serif);font-weight:500;font-size:28px;margin-bottom:10px}
+.soon-block p{color:var(--taupe);font-size:15px;max-width:420px;margin:0 auto 22px}
+.soon-form{display:flex;max-width:380px;margin:0 auto;gap:10px}
+.soon-form input{
+  flex:1;padding:13px 16px;border:1.5px solid var(--line);
+  border-radius:30px;background:var(--cream);font-size:14px;font-family:var(--sans);
+}
+.soon-form input:focus{outline:none;border-color:var(--gold)}
+.soon-form button{
+  padding:13px 24px;border-radius:30px;border:none;
+  background:var(--charcoal);color:var(--cream);
+  font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;
+}
+.soon-form button:hover{background:var(--gold);color:var(--charcoal)}
+
+/* Private events */
+.private-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:40px;
+  max-width:1100px;margin:0 auto;align-items:center;
+}
+.private-grid img{border-radius:18px;width:100%;aspect-ratio:4/5;object-fit:cover}
+.private-txt h2{
+  font-family:var(--serif);font-weight:500;font-size:clamp(28px,4vw,42px);
+  margin-bottom:16px;line-height:1.15;
+}
+.private-txt h2 em{font-style:italic;color:var(--gold);font-weight:400}
+.private-txt p{color:var(--taupe);font-size:15.5px;margin-bottom:24px}
+.private-list{margin-bottom:28px}
+.private-list li{
+  list-style:none;display:flex;align-items:flex-start;gap:12px;
+  font-size:14.5px;color:var(--charcoal);margin-bottom:12px;
+}
+.private-list li::before{
+  content:"✓";color:var(--gold);font-weight:700;flex-shrink:0;
+}
+@media (max-width:880px){.private-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav class="site-nav" id="nav">
+  <a href="index.html" class="nav-logo">Method <span>By Mads &nbsp;·&nbsp; Thoughts in Motion</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="schedule.html">Schedule</a>
+    <a href="events.html" class="active">Events</a>
+    <a href="coaching.html">Coaching</a>
+    <a href="events.html#book" class="nav-cta">Book Now</a>
+  </div>
+  <button class="nav-burger" onclick="document.getElementById('mmenu').classList.add('open')">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mmenu">
+  <button class="close-menu" onclick="document.getElementById('mmenu').classList.remove('open')">&times;</button>
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="schedule.html">Schedule</a>
+  <a href="events.html">Events</a>
+  <a href="coaching.html">Coaching</a>
+  <a href="events.html#book">Book Now</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="eyebrow">Pop-Ups &amp; Special Days</div>
+  <h1>Events <em>&amp; Experiences</em></h1>
+  <p class="lead">A few times a year, METHOD by mads steps outside the studio — pool decks, parks, and private spaces. Here's what's coming up.</p>
+</div>
+
+<section class="section" id="book">
+
+  <!-- POOL PARTY -->
+  <div class="event-block" id="pool-party">
+    <div class="event-media">
+      <span class="badge event-badge">Booking Open</span>
+      <img src="images/Facetune_31-05-2026-14-37-37.jpg" alt="Pilates Pool Party">
+    </div>
+    <div class="event-body">
+      <div class="eyebrow">Method by mads &times; Posh Palates</div>
+      <h2>Pilates <em>Pool Party</em></h2>
+      <div class="price"><sup>$</sup>30</div>
+      <p class="desc">A full mat Pilates session poolside, followed by good vibes and good company. Open to all levels — bring a towel, water, and your favourite swimsuit.</p>
+      <div class="event-pills">
+        <span class="event-pill">📅 July 12, 2025</span>
+        <span class="event-pill">⏰ 2:00 PM</span>
+        <span class="event-pill">📍 Beauharnois, QC</span>
+      </div>
+
+      <div class="booking-card" id="poolCard">
+        <div class="field"><label>Full Name</label><input id="pp_name" type="text" placeholder="Your name"></div>
+        <div class="field"><label>Email</label><input id="pp_email" type="email" placeholder="you@email.com"></div>
+        <div class="field"><label>Phone Number</label><input id="pp_phone" type="tel" placeholder="+1 (514) 000-0000"></div>
+        <button class="btn btn-dark" style="width:100%;justify-content:center" onclick="payPoolParty()">Pay $30 &amp; Reserve My Spot →</button>
+        <div class="err" id="pp_err"></div>
+        <div class="secure">🔒 Secure payment via Stripe</div>
+      </div>
+
+      <div class="booking-done" id="poolDone">
+        <div class="tick">✓</div>
+        <h3>You're in! 🌊</h3>
+        <p id="poolDoneMsg"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PILATES IN THE PARK -->
+  <div class="event-block reverse" id="park">
+    <div class="event-media">
+      <span class="badge event-badge">Coming Soon</span>
+      <img src="images/Facetune_04-06-2026-07-32-50.jpg" alt="Pilates in the Park">
+    </div>
+    <div class="event-body">
+      <div class="eyebrow">Outdoor Mat Session</div>
+      <h2>Pilates <em>in the Park</em></h2>
+      <p class="desc">An open-air mat Pilates session surrounded by nature. Details on date, location, and pricing are coming soon — be the first to know when registration opens.</p>
+      <div class="event-pills">
+        <span class="event-pill">📍 Location TBA</span>
+        <span class="event-pill">📅 Date Coming Soon</span>
+      </div>
+
+      <div class="soon-block" style="text-align:left;padding:30px">
+        <p style="margin-bottom:14px">Want first access when this opens? Drop your email below.</p>
+        <form class="soon-form" onsubmit="notifyMe(event,'park')">
+          <input type="email" placeholder="you@email.com" required id="park_email">
+          <button type="submit">Notify Me</button>
+        </form>
+        <div class="err" id="park_err" style="text-align:left"></div>
+        <div class="booking-done" id="park_done" style="text-align:left;margin-top:14px">
+          <p style="color:var(--gold);font-weight:700">✓ You're on the list — we'll be in touch!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- SWOOSH -->
+<svg class="swoosh" viewBox="0 0 180 24" xmlns="http://www.w3.org/2000/svg">
+  <path d="M5 14 C 45 24, 75 4, 105 12 C 130 18, 155 6, 175 10"/>
+</svg>
+
+<!-- PRIVATE EVENTS -->
+<section class="section section-greige">
+  <div class="private-grid">
+    <img src="images/Facetune_04-06-2026-13-08-02.jpg" alt="Private Pilates session">
+    <div class="private-txt">
+      <div class="eyebrow" style="text-align:left">Just For You (and friends)</div>
+      <h2>Book a <em>Private Event</em></h2>
+      <p>Want METHOD by mads for your bachelorette, birthday, corporate wellness day, or just you and your friends? Private sessions are fully customizable — at your space, a studio, or outdoors.</p>
+      <ul class="private-list">
+        <li>Customized to your group's level &amp; goals</li>
+        <li>Mat, props, and music included</li>
+        <li>Available for groups of 4–20</li>
+        <li>On-location or studio rental available</li>
+      </ul>
+      <a href="mailto:hello@methodbymads.com?subject=Private%20Pilates%20Event%20Inquiry" class="btn btn-dark">Inquire About a Private Event</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="nav-logo">Method <span>By Mads</span></div>
+      <div class="footer-tagline">"Thoughts in Motion" — movement, mindset &amp; motherhood, woven together.</div>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <a href="about.html">About</a>
+      <a href="schedule.html">Schedule</a>
+      <a href="events.html">Events</a>
+      <a href="coaching.html">Coaching</a>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
+      <a href="mailto:hello@methodbymads.com">hello@methodbymads.com</a>
+      <p>Montréal &amp; surrounding area, QC</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Method By Mads</span>
+    <span>Thoughts in Motion</span>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY>40);
+});
+
+// ===== POOL PARTY BOOKING (Stripe) =====
+const STRIPE_LINK = "https://buy.stripe.com/5kQdR89zOcqc6h812iawo00";
+
+function ppErr(m){document.getElementById("pp_err").textContent=m;}
+
+function payPoolParty(){
+  const name=document.getElementById("pp_name").value.trim();
+  const email=document.getElementById("pp_email").value.trim();
+  const phone=document.getElementById("pp_phone").value.trim();
+  if(!name) return ppErr("Please enter your name.");
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return ppErr("Please enter a valid email.");
+  if(!phone) return ppErr("Please enter your phone number.");
+  ppErr("");
+  sessionStorage.setItem("booking_name",name);
+  sessionStorage.setItem("booking_phone",phone);
+  sessionStorage.setItem("booking_email",email);
+  const ref=(name+"_July12_2PM").replace(/[^A-Za-z0-9_-]/g,"").slice(0,180);
+  const sep=STRIPE_LINK.includes("?")?"&":"?";
+  window.location.href=STRIPE_LINK+sep+"prefilled_email="+encodeURIComponent(email)+"&client_reference_id="+encodeURIComponent(ref);
+}
+
+// Check if returning from Stripe success
+const params=new URLSearchParams(window.location.search);
+if(params.get("success")==="1"||document.referrer.includes("stripe.com")||document.referrer.includes("buy.stripe.com")){
+  const savedName=sessionStorage.getItem("booking_name")||"Friend";
+  const savedPhone=sessionStorage.getItem("booking_phone");
+  const card=document.getElementById("poolCard");
+  if(card){
+    card.style.display="none";
+    document.getElementById("poolDoneMsg").textContent=savedName.split(" ")[0]+", your spot at Pilates Pool Party on July 12 at 2:00 PM is confirmed! See you poolside!";
+    document.getElementById("poolDone").classList.add("show");
+    if(savedPhone){
+      fetch("/.netlify/functions/send-sms",{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({to:savedPhone,name:savedName})
+      });
+    }
+  }
+}
+
+// ===== PILATES IN THE PARK - notify me =====
+function notifyMe(e, eventKey){
+  e.preventDefault();
+  const email = document.getElementById(eventKey+"_email").value.trim();
+  const errEl = document.getElementById(eventKey+"_err");
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){
+    errEl.textContent="Please enter a valid email.";
+    return;
+  }
+  errEl.textContent="";
+  // Store interest locally - could be wired to a form service later
+  document.querySelector("#"+eventKey+" .soon-form").style.display="none";
+  document.getElementById(eventKey+"_done").classList.add("show");
+}
+</script>
+</body>
+</html>

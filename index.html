@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>METHOD by mads — Thoughts in Motion</title>
+<meta name="description" content="Pilates, movement and mindset coaching by Mads. Book classes, special events, and private sessions in Montréal.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Mulish:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+/* ===== HOME-SPECIFIC ===== */
+.hero{
+  position:relative;height:100vh;min-height:600px;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+.hero video{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center 30%;
+  filter:saturate(0.92) brightness(0.97);
+}
+.hero::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(58,53,47,.18) 0%,rgba(58,53,47,.05) 35%,rgba(58,53,47,.55) 100%);
+}
+.hero-content{
+  position:relative;z-index:2;text-align:center;color:#fff;
+  padding:0 5vw;
+}
+.hero-content .eyebrow-line{
+  font-size:13px;letter-spacing:.32em;text-transform:uppercase;
+  font-weight:700;color:rgba(255,255,255,.92);margin-bottom:22px;
+}
+.hero-content h1{
+  font-family:var(--serif);font-weight:500;
+  font-size:clamp(46px,9vw,108px);line-height:1.0;
+  letter-spacing:-.01em;
+}
+.hero-content h1 em{font-style:italic;font-weight:400;color:#fff}
+.hero-content .sub{
+  margin-top:24px;font-size:clamp(15px,2vw,19px);
+  color:rgba(255,255,255,.85);max-width:480px;margin-left:auto;margin-right:auto;
+}
+.hero-cta-row{
+  margin-top:42px;display:flex;gap:18px;justify-content:center;flex-wrap:wrap;
+}
+.hero-swoosh{
+  position:absolute;bottom:38px;left:50%;transform:translateX(-50%);
+  z-index:2;
+}
+.scroll-cue{
+  position:absolute;bottom:80px;left:50%;transform:translateX(-50%);
+  z-index:2;color:#fff;font-size:11px;letter-spacing:.3em;
+  text-transform:uppercase;display:flex;flex-direction:column;
+  align-items:center;gap:10px;opacity:.8;
+}
+.scroll-cue .line{width:1px;height:36px;background:rgba(255,255,255,.5);
+  animation:scrolldown 1.8s ease-in-out infinite;
+}
+@keyframes scrolldown{
+  0%{transform:scaleY(0);transform-origin:top}
+  50%{transform:scaleY(1);transform-origin:top}
+  50.01%{transform-origin:bottom}
+  100%{transform:scaleY(0);transform-origin:bottom}
+}
+
+/* Intro statement */
+.intro{
+  text-align:center;padding:130px 5vw;
+}
+.intro p{
+  font-family:var(--serif);font-weight:400;font-style:italic;
+  font-size:clamp(24px,3.6vw,42px);line-height:1.45;
+  max-width:880px;margin:0 auto;color:var(--charcoal);
+}
+.intro p strong{font-style:normal;font-weight:600;color:var(--gold)}
+
+/* Nav cards */
+.nav-cards{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:28px;
+  max-width:1200px;margin:0 auto;padding:0 5vw;
+}
+.nav-card{
+  position:relative;border-radius:18px;overflow:hidden;
+  aspect-ratio:3/4;display:flex;align-items:flex-end;
+  text-decoration:none;
+}
+.nav-card img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  transition:transform .6s ease;
+}
+.nav-card:hover img{transform:scale(1.05)}
+.nav-card::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(58,53,47,0) 30%,rgba(58,53,47,.78) 100%);
+}
+.nav-card-txt{
+  position:relative;z-index:2;color:#fff;padding:32px;width:100%;
+}
+.nav-card-txt .tag{
+  font-size:11px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--gold);font-weight:700;margin-bottom:8px;
+}
+.nav-card-txt h3{
+  font-family:var(--serif);font-weight:500;font-size:26px;
+}
+.nav-card-txt .arrow{
+  margin-top:10px;font-size:13px;letter-spacing:.1em;
+  display:flex;align-items:center;gap:8px;
+  opacity:0;transform:translateX(-8px);
+  transition:.3s ease;
+}
+.nav-card:hover .arrow{opacity:1;transform:translateX(0)}
+
+@media (max-width:900px){
+  .nav-cards{grid-template-columns:1fr;gap:18px}
+}
+
+/* Photo strip */
+.photo-strip{
+  display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:18px;
+  max-width:1200px;margin:0 auto;padding:0 5vw;
+  align-items:end;
+}
+.photo-strip img{border-radius:16px;width:100%;object-fit:cover}
+.photo-strip .tall{aspect-ratio:3/4.4}
+.photo-strip .mid{aspect-ratio:3/4}
+@media (max-width:760px){
+  .photo-strip{grid-template-columns:1fr 1fr;gap:12px}
+  .photo-strip .tall{grid-column:span 2;aspect-ratio:16/11}
+}
+
+/* Quote / philosophy band */
+.philosophy{
+  text-align:center;
+}
+.philosophy-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:50px;
+  max-width:1100px;margin:60px auto 0;
+}
+.philosophy-item .num{
+  font-family:var(--serif);font-style:italic;font-size:42px;
+  color:var(--gold);margin-bottom:14px;
+}
+.philosophy-item h4{
+  font-family:var(--serif);font-weight:500;font-size:21px;margin-bottom:10px;
+}
+.philosophy-item p{font-size:14.5px;color:var(--taupe)}
+@media (max-width:760px){
+  .philosophy-grid{grid-template-columns:1fr;gap:36px}
+}
+
+/* CTA band */
+.cta-band{
+  position:relative;text-align:center;padding:120px 5vw;
+  background:var(--charcoal);color:var(--cream);overflow:hidden;
+}
+.cta-band h2{
+  font-family:var(--serif);font-weight:500;
+  font-size:clamp(32px,5.5vw,58px);line-height:1.1;
+}
+.cta-band h2 em{font-style:italic;color:var(--gold);font-weight:400}
+.cta-band p{margin-top:18px;color:rgba(247,245,241,.7);font-size:16px}
+.cta-band .hero-cta-row{margin-top:36px}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="site-nav" id="nav">
+  <a href="index.html" class="nav-logo">Method <span>By Mads &nbsp;·&nbsp; Thoughts in Motion</span></a>
+  <div class="nav-links">
+    <a href="index.html" class="active">Home</a>
+    <a href="about.html">About</a>
+    <a href="schedule.html">Schedule</a>
+    <a href="events.html">Events</a>
+    <a href="coaching.html">Coaching</a>
+    <a href="events.html#book" class="nav-cta">Book Now</a>
+  </div>
+  <button class="nav-burger" onclick="document.getElementById('mmenu').classList.add('open')">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mmenu">
+  <button class="close-menu" onclick="document.getElementById('mmenu').classList.remove('open')">&times;</button>
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="schedule.html">Schedule</a>
+  <a href="events.html">Events</a>
+  <a href="coaching.html">Coaching</a>
+  <a href="events.html#book">Book Now</a>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <video autoplay muted loop playsinline poster="images/Facetune_04-06-2026-07-32-50.jpg">
+    <source src="video/hero.mp4" type="video/mp4">
+  </video>
+  <div class="hero-content">
+    <div class="eyebrow-line">Pilates &nbsp;·&nbsp; Movement &nbsp;·&nbsp; Mindset</div>
+    <h1>Thoughts <em>in Motion</em></h1>
+    <p class="sub">Mat Pilates and mindful movement with Mads — built around real life, real bodies, and the beauty of becoming.</p>
+    <div class="hero-cta-row">
+      <a href="schedule.html" class="btn btn-light">View Schedule</a>
+      <a href="events.html" class="btn btn-outline" style="border-color:rgba(255,255,255,.6);color:#fff">Explore Events</a>
+    </div>
+  </div>
+  <div class="scroll-cue"><span class="line"></span>Scroll</div>
+</div>
+
+<!-- INTRO STATEMENT -->
+<section class="intro">
+  <p>Movement isn't about getting it perfect — it's about <strong>showing up</strong>, figuring it out as you go, and trusting the process. That's the whole philosophy behind METHOD by mads: <strong>movement, mindset &amp; motherhood</strong>, woven together.</p>
+</section>
+
+<!-- SWOOSH -->
+<svg class="swoosh" viewBox="0 0 180 24" xmlns="http://www.w3.org/2000/svg">
+  <path d="M5 14 C 45 24, 75 4, 105 12 C 130 18, 155 6, 175 10"/>
+</svg>
+
+<!-- NAV CARDS -->
+<section class="section">
+  <div class="eyebrow">Find Your Way</div>
+  <h2 class="section-title">Where would you <em>like to go?</em></h2>
+  <p class="section-lead">Whether it's a weekly class, a special event under the sky, or your first step into coaching — start here.</p>
+  <div class="nav-cards">
+    <a href="schedule.html" class="nav-card">
+      <img src="images/Facetune_04-06-2026-07-32-50.jpg" alt="Pilates class schedule">
+      <div class="nav-card-txt">
+        <div class="tag">Weekly Classes</div>
+        <h3>Schedule</h3>
+        <div class="arrow">See class times &amp; studios →</div>
+      </div>
+    </a>
+    <a href="events.html" class="nav-card">
+      <img src="images/Facetune_31-05-2026-14-37-37.jpg" alt="Special events">
+      <div class="nav-card-txt">
+        <div class="tag">Pop-Ups &amp; Special Days</div>
+        <h3>Events</h3>
+        <div class="arrow">Pool parties, park sessions →</div>
+      </div>
+    </a>
+    <a href="coaching.html" class="nav-card">
+      <img src="images/Facetune_04-06-2026-13-08-02.jpg" alt="Coaching program">
+      <div class="nav-card-txt">
+        <div class="tag">Coming Soon</div>
+        <h3>Coaching</h3>
+        <div class="arrow">Mindset, meditation, movement →</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- PHOTO STRIP -->
+<section class="section tight">
+  <div class="photo-strip">
+    <img class="tall" src="images/IMG_1242_resized.jpg" alt="Pilates with family">
+    <img class="mid" src="images/Facetune_04-06-2026-09-30-26.jpg" alt="Stretch pose">
+    <img class="mid" src="images/Facetune_04-06-2026-13-08-02.jpg" alt="Side stretch pose">
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="section section-greige philosophy">
+  <div class="eyebrow">The Method</div>
+  <h2 class="section-title">Three things I <em>believe</em></h2>
+  <div class="philosophy-grid">
+    <div class="philosophy-item">
+      <div class="num">01</div>
+      <h4>Movement is for everybody</h4>
+      <p>All levels, all bodies, all stages of life — including the chaotic, beautiful stage of motherhood.</p>
+    </div>
+    <div class="philosophy-item">
+      <div class="num">02</div>
+      <h4>Mindset is the foundation</h4>
+      <p>How you move on the mat reflects how you move through life. We work on both, together.</p>
+    </div>
+    <div class="philosophy-item">
+      <div class="num">03</div>
+      <h4>Becoming is the practice</h4>
+      <p>There's no "arrived." Just the next rep, the next breath, the next small step forward.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section class="cta-band">
+  <div class="eyebrow">Ready When You Are</div>
+  <h2>Your next class is <em>one click away</em></h2>
+  <p>Find a studio session, reserve a special event, or get on the list for coaching.</p>
+  <div class="hero-cta-row">
+    <a href="schedule.html" class="btn btn-light">View Schedule</a>
+    <a href="events.html" class="btn btn-outline" style="border-color:rgba(255,255,255,.6);color:#fff">Book an Event</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="nav-logo">Method <span>By Mads</span></div>
+      <div class="footer-tagline">"Thoughts in Motion" — movement, mindset &amp; motherhood, woven together.</div>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <a href="about.html">About</a>
+      <a href="schedule.html">Schedule</a>
+      <a href="events.html">Events</a>
+      <a href="coaching.html">Coaching</a>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
+      <a href="mailto:hello@methodbymads.com">hello@methodbymads.com</a>
+      <p>Montréal &amp; surrounding area, QC</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Method By Mads</span>
+    <span>Thoughts in Motion</span>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY>40);
+});
+</script>
+</body>
+</html>

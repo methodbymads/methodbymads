@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coaching — Method by mads</title>
+<meta name="description" content="Mindset, meditation & movement coaching with Mads — coming soon.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Mulish:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+/* ===== COACHING-SPECIFIC ===== */
+.coach-hero{
+  position:relative;
+  display:grid;grid-template-columns:1fr 1fr;
+  max-width:1300px;margin:0 auto;
+  padding:160px 5vw 100px;align-items:center;
+}
+.coach-hero-txt .eyebrow{text-align:left}
+.coach-hero-txt h1{
+  font-family:var(--serif);font-weight:500;
+  font-size:clamp(38px,6vw,64px);line-height:1.08;margin-bottom:22px;
+}
+.coach-hero-txt h1 em{font-style:italic;color:var(--gold);font-weight:400}
+.coach-hero-txt p{font-size:17px;color:var(--taupe);margin-bottom:28px;max-width:460px}
+.coach-hero-img{position:relative}
+.coach-hero-img img{border-radius:18px;width:100%;aspect-ratio:4/5;object-fit:cover}
+.coach-hero-img::after{
+  content:"";position:absolute;inset:0;border-radius:18px;
+  background:linear-gradient(180deg,rgba(58,53,47,0) 50%,rgba(58,53,47,.45) 100%);
+}
+.coach-hero-img .label{
+  position:absolute;bottom:24px;left:24px;z-index:2;color:#fff;
+  font-family:var(--serif);font-style:italic;font-size:20px;
+}
+@media (max-width:880px){
+  .coach-hero{grid-template-columns:1fr;gap:50px;padding-top:140px}
+}
+
+/* Three pillars of coaching */
+.coach-pillars{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:30px;
+  max-width:1100px;margin:0 auto;
+}
+.coach-pillar{
+  text-align:center;padding:50px 34px;border-radius:16px;
+  background:var(--cream);border:1px solid var(--line);
+  position:relative;overflow:hidden;
+}
+.coach-pillar .icon{font-size:32px;margin-bottom:18px;display:block}
+.coach-pillar h3{font-family:var(--serif);font-weight:500;font-size:23px;margin-bottom:12px}
+.coach-pillar p{font-size:14.5px;color:var(--taupe)}
+@media (max-width:820px){.coach-pillars{grid-template-columns:1fr;gap:20px}}
+
+/* Notify form big */
+.notify-section{
+  text-align:center;padding:110px 5vw;
+  background:var(--charcoal);color:var(--cream);
+}
+.notify-section .badge{margin-bottom:22px;background:rgba(201,168,118,.15)}
+.notify-section h2{
+  font-family:var(--serif);font-weight:500;
+  font-size:clamp(32px,5.5vw,56px);line-height:1.1;margin-bottom:18px;
+}
+.notify-section h2 em{font-style:italic;color:var(--gold);font-weight:400}
+.notify-section p{color:rgba(247,245,241,.7);max-width:540px;margin:0 auto 40px;font-size:16px}
+.notify-form{display:flex;max-width:440px;margin:0 auto;gap:12px}
+.notify-form input{
+  flex:1;padding:16px 20px;border-radius:32px;border:1.5px solid rgba(247,245,241,.25);
+  background:rgba(247,245,241,.06);color:var(--cream);font-size:15px;font-family:var(--sans);
+}
+.notify-form input::placeholder{color:rgba(247,245,241,.45)}
+.notify-form input:focus{outline:none;border-color:var(--gold)}
+.notify-form button{
+  padding:16px 32px;border-radius:32px;border:none;
+  background:var(--gold);color:var(--charcoal);
+  font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;
+  transition:.25s ease;
+}
+.notify-form button:hover{background:var(--cream)}
+.notify-err{color:#e0a98c;font-size:13px;margin-top:12px;min-height:18px}
+.notify-done{display:none;margin-top:14px}
+.notify-done.show{display:block;animation:fade .4s}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.notify-done p{color:var(--gold);font-weight:700;font-size:15px}
+@media (max-width:540px){.notify-form{flex-direction:column}}
+
+/* Timeline-ish "what to expect" */
+.expect-row{
+  display:flex;justify-content:center;gap:0;flex-wrap:wrap;
+  max-width:980px;margin:0 auto;
+}
+.expect-item{
+  flex:1;min-width:220px;text-align:center;padding:0 24px;
+  position:relative;
+}
+.expect-item:not(:last-child)::after{
+  content:"";position:absolute;top:24px;right:-2px;
+  width:24px;height:1px;background:var(--line);
+}
+.expect-item .dot{
+  width:48px;height:48px;border-radius:50%;
+  border:1.5px solid var(--gold);color:var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-style:italic;font-size:18px;
+  margin:0 auto 18px;
+}
+.expect-item h4{font-family:var(--serif);font-weight:500;font-size:18px;margin-bottom:8px}
+.expect-item p{font-size:13.5px;color:var(--taupe)}
+@media (max-width:760px){
+  .expect-item::after{display:none}
+  .expect-item{margin-bottom:30px}
+}
+</style>
+</head>
+<body>
+
+<nav class="site-nav" id="nav">
+  <a href="index.html" class="nav-logo">Method <span>By Mads &nbsp;·&nbsp; Thoughts in Motion</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="schedule.html">Schedule</a>
+    <a href="events.html">Events</a>
+    <a href="coaching.html" class="active">Coaching</a>
+    <a href="events.html#book" class="nav-cta">Book Now</a>
+  </div>
+  <button class="nav-burger" onclick="document.getElementById('mmenu').classList.add('open')">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mmenu">
+  <button class="close-menu" onclick="document.getElementById('mmenu').classList.remove('open')">&times;</button>
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="schedule.html">Schedule</a>
+  <a href="events.html">Events</a>
+  <a href="coaching.html">Coaching</a>
+  <a href="events.html#book">Book Now</a>
+</div>
+
+<!-- COACHING HERO -->
+<section class="coach-hero">
+  <div class="coach-hero-txt">
+    <div class="eyebrow">A New Chapter</div>
+    <h1>Coaching <em>is coming.</em></h1>
+    <p>A 1:1 and small-group coaching program built around the same philosophy as everything else I do — mindset, meditation &amp; movement, woven together for real life.</p>
+    <span class="badge">Launching Soon</span>
+  </div>
+  <div class="coach-hero-img">
+    <img src="images/Facetune_04-06-2026-09-30-26.jpg" alt="Mindset and movement coaching">
+    <div class="label">"the next chapter of thoughts in motion"</div>
+  </div>
+</section>
+
+<!-- SWOOSH -->
+<svg class="swoosh" viewBox="0 0 180 24" xmlns="http://www.w3.org/2000/svg">
+  <path d="M5 14 C 45 24, 75 4, 105 12 C 130 18, 155 6, 175 10"/>
+</svg>
+
+<!-- THREE PILLARS -->
+<section class="section">
+  <div class="eyebrow">What's Coming</div>
+  <h2 class="section-title">Mindset, meditation <em>&amp; movement</em></h2>
+  <p class="section-lead">Three pillars, one program — designed to help you build a sustainable relationship with movement and yourself.</p>
+  <div class="coach-pillars">
+    <div class="coach-pillar">
+      <span class="icon">🧠</span>
+      <h3>Mindset</h3>
+      <p>Reframing your relationship with movement, food, and your body — rooted in self-compassion, not perfection.</p>
+    </div>
+    <div class="coach-pillar">
+      <span class="icon">🕊️</span>
+      <h3>Meditation</h3>
+      <p>Simple, accessible practices to build awareness and calm — designed to fit into even the busiest of days.</p>
+    </div>
+    <div class="coach-pillar">
+      <span class="icon">🤍</span>
+      <h3>Movement</h3>
+      <p>Personalized movement guidance that meets your body and your season of life exactly where it is.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT TO EXPECT -->
+<section class="section section-greige">
+  <div class="eyebrow">How It Will Work</div>
+  <h2 class="section-title">A glimpse at the <em>format</em></h2>
+  <div class="expect-row">
+    <div class="expect-item">
+      <div class="dot">1</div>
+      <h4>Discovery Call</h4>
+      <p>A free consultation to talk through your goals and see if it's the right fit.</p>
+    </div>
+    <div class="expect-item">
+      <div class="dot">2</div>
+      <h4>Custom Plan</h4>
+      <p>A personalized roadmap covering mindset, meditation, and movement.</p>
+    </div>
+    <div class="expect-item">
+      <div class="dot">3</div>
+      <h4>Ongoing Support</h4>
+      <p>Regular check-ins and adjustments as life — and your needs — evolve.</p>
+    </div>
+  </div>
+</section>
+
+<!-- NOTIFY -->
+<section class="notify-section">
+  <span class="badge">Be First To Know</span>
+  <h2>Join the <em>waitlist</em></h2>
+  <p>Coaching spots will be limited at launch. Add your email to get early access, launch pricing, and a free discovery call before it opens to everyone else.</p>
+  <form class="notify-form" onsubmit="joinWaitlist(event)">
+    <input type="email" id="waitlist_email" placeholder="you@email.com" required>
+    <button type="submit">Notify Me</button>
+  </form>
+  <div class="notify-err" id="waitlist_err"></div>
+  <div class="notify-done" id="waitlist_done">
+    <p>✓ You're on the waitlist — thank you! We'll be in touch soon.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="nav-logo">Method <span>By Mads</span></div>
+      <div class="footer-tagline">"Thoughts in Motion" — movement, mindset &amp; motherhood, woven together.</div>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <a href="about.html">About</a>
+      <a href="schedule.html">Schedule</a>
+      <a href="events.html">Events</a>
+      <a href="coaching.html">Coaching</a>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
+      <a href="mailto:hello@methodbymads.com">hello@methodbymads.com</a>
+      <p>Montréal &amp; surrounding area, QC</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Method By Mads</span>
+    <span>Thoughts in Motion</span>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY>40);
+});
+
+function joinWaitlist(e){
+  e.preventDefault();
+  const email = document.getElementById('waitlist_email').value.trim();
+  const errEl = document.getElementById('waitlist_err');
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){
+    errEl.textContent = "Please enter a valid email.";
+    return;
+  }
+  errEl.textContent = "";
+  document.querySelector('.notify-form').style.display='none';
+  document.getElementById('waitlist_done').classList.add('show');
+}
+</script>
+</body>
+</html>
