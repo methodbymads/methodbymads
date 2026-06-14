@@ -21,10 +21,15 @@ exports.handler = async (event) => {
   }
 
   try {
-    const { to, name } = JSON.parse(event.body);
+    const { to, name, event: eventType } = JSON.parse(event.body);
     const firstName = (name || 'Friend').split(' ')[0];
 
-    const message = `Hi ${firstName}! Your spot at the Pilates Pool Party is CONFIRMED! 🌊\n\nDate: July 12, 2025\nTime: 2:00 PM\nLocation: Beauharnois, QC\nHosted by: METHOD by mads x Posh Palates\n\nThe exact address will be sent to you shortly!\n\nSee you poolside! 🏊‍♀️`;
+    let message;
+    if (eventType === 'park') {
+      message = `Hi ${firstName}! Your spot at Pilates in the Park is CONFIRMED! 🌳\n\nDate: Thursday, June 25\nTime: 6:30 PM\nLocation: Île St-Bernard, Châteauguay\n\nOnce you're on the island, walk just past the manoir — we'll be on your left!\n\nSee you there! 🌿`;
+    } else {
+      message = `Hi ${firstName}! Your spot at the Pilates Pool Party is CONFIRMED! 🌊\n\nDate: July 12, 2025\nTime: 2:00 PM\nLocation: Beauharnois, QC\nHosted by: METHOD by mads x Posh Palates\n\nThe exact address will be sent to you shortly!\n\nSee you poolside! 🏊‍♀️`;
+    }
 
     const body = new URLSearchParams({
       To: to,
