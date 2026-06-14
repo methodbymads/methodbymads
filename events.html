@@ -62,6 +62,13 @@
   background:var(--greige);border-radius:18px;padding:34px;
   margin-top:6px;
 }
+.full-card{
+  display:none;
+  background:var(--greige);border-radius:18px;padding:34px;
+  margin-top:6px;text-align:center;
+}
+.full-card p{font-size:14.5px;color:var(--taupe);margin-bottom:10px}
+.full-card p strong{color:var(--charcoal);font-size:16px}
 .booking-card .field{margin-bottom:14px}
 .booking-card .field label{
   display:block;font-size:11px;letter-spacing:.14em;
@@ -193,6 +200,12 @@
         <div class="secure">🔒 Secure payment via Stripe</div>
       </div>
 
+      <div class="full-card" id="poolFull">
+        <p><strong>This event is currently full.</strong></p>
+        <p>Want to be added to the waitlist or arrange a private spot? Reach out and I'll get back to you with details.</p>
+        <a href="mailto:madison.cheval@outlook.com?subject=Pilates%20Pool%20Party%20-%20Waitlist" class="btn btn-outline" style="margin-top:14px">Email Me</a>
+      </div>
+
       <div class="booking-done" id="poolDone">
         <div class="tick">✓</div>
         <h3>You're in! 🌊</h3>
@@ -225,6 +238,12 @@
         <button class="btn btn-dark" style="width:100%;justify-content:center" onclick="payPark()">Pay $17 &amp; Reserve My Spot →</button>
         <div class="err" id="park_err"></div>
         <div class="secure">🔒 Secure payment via Stripe</div>
+      </div>
+
+      <div class="full-card" id="parkFull">
+        <p><strong>This event is currently full.</strong></p>
+        <p>Want to be added to the waitlist or arrange a private spot? Reach out and I'll get back to you with details.</p>
+        <a href="mailto:madison.cheval@outlook.com?subject=Pilates%20in%20the%20Park%20-%20Waitlist" class="btn btn-outline" style="margin-top:14px">Email Me</a>
       </div>
 
       <div class="booking-done" id="parkDone">
@@ -288,13 +307,42 @@
 </footer>
 
 <script>
+// ===== EVENT CAPACITY CONFIG =====
+// Set to true when an event is fully booked - this hides the booking
+// form and shows a "contact me" message instead.
+const EVENT_FULL = {
+  pool: false,   // Pilates Pool Party - max 7 spots
+  park: false    // Pilates in the Park - max 20 spots
+};
+
 window.addEventListener('scroll',()=>{
   document.getElementById('nav').classList.toggle('scrolled', window.scrollY>40);
 });
 
+// Apply full status on load
+if(EVENT_FULL.pool){
+  document.getElementById('poolCard').style.display='none';
+  document.getElementById('poolFull').style.display='block';
+}
+if(EVENT_FULL.park){
+  document.getElementById('parkCard').style.display='none';
+  document.getElementById('parkFull').style.display='block';
+}
+
+
+// ===== TEST MODE =====
+// Set to true to use the $0.01 test Stripe links instead of real ones.
+// Useful for testing the full booking + SMS flow without charging real prices.
+// IMPORTANT: set back to false before going live for real customers!
+const TEST_MODE = true;
+
 // ===== POOL PARTY BOOKING (Stripe) =====
-const POOL_STRIPE_LINK = "https://buy.stripe.com/5kQdR89zOcqc6h812iawo00";
-const PARK_STRIPE_LINK = "https://buy.stripe.com/3cI3cu4fuai4cFwfXcawo01";
+const POOL_STRIPE_LINK = TEST_MODE
+  ? "https://buy.stripe.com/14A4gy3bq1LybBs5iyawo02"
+  : "https://buy.stripe.com/5kQdR89zOcqc6h812iawo00";
+const PARK_STRIPE_LINK = TEST_MODE
+  ? "https://buy.stripe.com/14A4gy3bq1LybBs5iyawo02"
+  : "https://buy.stripe.com/3cI3cu4fuai4cFwfXcawo01";
 
 function ppErr(m){document.getElementById("pp_err").textContent=m;}
 
