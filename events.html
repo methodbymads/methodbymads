@@ -82,6 +82,12 @@
 .booking-card .field input:focus{outline:none;border-color:var(--gold)}
 .booking-card .err{color:#9a3b22;font-size:12.5px;margin-top:8px;text-align:center;min-height:16px}
 .booking-card .secure{text-align:center;font-size:11px;color:var(--taupe);margin-top:10px}
+.booking-card .policy-note{
+  text-align:center;font-size:11.5px;color:var(--taupe);
+  margin-top:14px;padding-top:14px;border-top:1px solid var(--line);
+  line-height:1.6;
+}
+.booking-card .policy-note a{color:var(--gold);font-weight:600}
 .booking-done{display:none;text-align:center;padding:10px 0}
 .booking-done.show{display:block;animation:fade .4s}
 @keyframes fade{from{opacity:0}to{opacity:1}}
@@ -198,6 +204,7 @@
         <button class="btn btn-dark" style="width:100%;justify-content:center" onclick="payPoolParty()">Pay $30 &amp; Reserve My Spot →</button>
         <div class="err" id="pp_err"></div>
         <div class="secure">🔒 Secure payment via Stripe</div>
+        <div class="policy-note">Need to cancel or change your booking? Email <a href="mailto:madison.cheval@outlook.com?subject=Pilates%20Pool%20Party%20-%20Cancellation">madison.cheval@outlook.com</a> at least 48 hours before the event.</div>
       </div>
 
       <div class="full-card" id="poolFull">
@@ -238,6 +245,7 @@
         <button class="btn btn-dark" style="width:100%;justify-content:center" onclick="payPark()">Pay $17 &amp; Reserve My Spot →</button>
         <div class="err" id="park_err"></div>
         <div class="secure">🔒 Secure payment via Stripe</div>
+        <div class="policy-note">Need to cancel or change your booking? Email <a href="mailto:madison.cheval@outlook.com?subject=Pilates%20in%20the%20Park%20-%20Cancellation">madison.cheval@outlook.com</a> at least 48 hours before the event.</div>
       </div>
 
       <div class="full-card" id="parkFull">
