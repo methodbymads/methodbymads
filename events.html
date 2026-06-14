@@ -190,10 +190,11 @@
       <div class="eyebrow">Method by mads &times; Posh Palates</div>
       <h2>Pilates <em>Pool Party</em></h2>
       <div class="price"><sup>$</sup>30</div>
-      <p class="desc">A full mat Pilates session poolside, followed by good vibes and good company. Open to all levels — bring a towel, water, and your favourite swimsuit.</p>
+      <p class="desc">A full mat Pilates session poolside, followed by good food, music, and good company courtesy of Posh Palates. This is an exclusive event with limited spots — open to all levels. Bring a towel, water, and your favourite swimsuit.</p>
+      <p class="desc">The exact address will be provided within 48 hours of the event. By signing up, you agree to be filmed and photographed for content purposes — and we'd love for you to share on your own socials too!</p>
       <div class="event-pills">
         <span class="event-pill">📅 July 12, 2025</span>
-        <span class="event-pill">⏰ 2:00 PM</span>
+        <span class="event-pill">⏰ 2:30 – 4:30 PM</span>
         <span class="event-pill">📍 Beauharnois, QC</span>
       </div>
 
@@ -342,7 +343,7 @@ if(EVENT_FULL.park){
 // Set to true to use the $0.01 test Stripe links instead of real ones.
 // Useful for testing the full booking + SMS flow without charging real prices.
 // IMPORTANT: set back to false before going live for real customers!
-const TEST_MODE = true;
+const TEST_MODE = false;
 
 // ===== POOL PARTY BOOKING (Stripe) =====
 const POOL_STRIPE_LINK = TEST_MODE
@@ -402,7 +403,7 @@ if(params.get("success")==="1"||document.referrer.includes("stripe.com")||docume
     const card=document.getElementById("poolCard");
     if(card){
       card.style.display="none";
-      document.getElementById("poolDoneMsg").textContent=savedName.split(" ")[0]+", your spot at Pilates Pool Party on July 12 at 2:00 PM is confirmed! See you poolside!";
+      document.getElementById("poolDoneMsg").textContent=savedName.split(" ")[0]+", your spot at Pilates Pool Party on July 12 (2:30-4:30 PM) is confirmed! The exact address will be sent to you within 48 hours of the event. See you poolside!";
       document.getElementById("poolDone").classList.add("show");
       if(savedPhone){
         fetch("/.netlify/functions/send-sms",{
