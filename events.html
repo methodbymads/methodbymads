@@ -222,43 +222,23 @@
     </div>
   </div>
 
-  <!-- PILATES IN THE PARK -->
+  <!-- PILATES IN THE PARK - COMING SOON -->
   <div class="event-block reverse" id="park">
     <div class="event-media">
-      <span class="badge event-badge">Booking Open</span>
+      <span class="badge event-badge">Coming Soon</span>
       <img src="images/Facetune_04-06-2026-07-32-50.jpg" alt="Pilates in the Park">
     </div>
     <div class="event-body">
       <div class="eyebrow">Outdoor Mat Session</div>
       <h2>Pilates <em>in the Park</em></h2>
-      <div class="price"><sup>$</sup>17</div>
-      <p class="desc">An open-air mat Pilates session surrounded by nature on Île St-Bernard. Meet on the island — once you're on, walk just past the manoir and you'll find us on your left. Bring a mat, water, and layers for the evening air.</p>
-      <div class="event-pills">
-        <span class="event-pill">📅 Thursday, June 25</span>
-        <span class="event-pill">⏰ 6:30 PM</span>
-        <span class="event-pill">📍 Île St-Bernard, Châteauguay</span>
-      </div>
+      <p class="desc">Something exciting is in the works — outdoor Pilates is coming back. Drop your email below and you'll be the first to know when booking opens.</p>
 
-      <div class="booking-card" id="parkCard">
-        <div class="field"><label>Full Name</label><input id="park_name" type="text" placeholder="Your name"></div>
-        <div class="field"><label>Email</label><input id="park_email" type="email" placeholder="you@email.com"></div>
-        <div class="field"><label>Phone Number</label><input id="park_phone" type="tel" placeholder="+1 (514) 000-0000"></div>
-        <button class="btn btn-dark" style="width:100%;justify-content:center" onclick="payPark()">Pay $17 &amp; Reserve My Spot →</button>
-        <div class="err" id="park_err"></div>
-        <div class="secure">🔒 Secure payment via Stripe</div>
-        <div class="policy-note">Need to cancel or change your booking? Email <a href="mailto:madison.cheval@outlook.com?subject=Pilates%20in%20the%20Park%20-%20Cancellation">madison.cheval@outlook.com</a> at least 48 hours before the event.</div>
-      </div>
-
-      <div class="full-card" id="parkFull">
-        <p><strong>This event is currently full.</strong></p>
-        <p>Want to be added to the waitlist or arrange a private spot? Reach out and I'll get back to you with details.</p>
-        <a href="mailto:madison.cheval@outlook.com?subject=Pilates%20in%20the%20Park%20-%20Waitlist" class="btn btn-outline" style="margin-top:14px">Email Me</a>
-      </div>
-
-      <div class="booking-done" id="parkDone">
-        <div class="tick">✓</div>
-        <h3>You're in! 🌳</h3>
-        <p id="parkDoneMsg"></p>
+      <div class="soon-block" style="padding:36px 28px;margin-top:0">
+        <div class="soon-form">
+          <input type="email" id="park_notify_email" placeholder="you@email.com">
+          <button onclick="notifyPark()">Notify Me</button>
+        </div>
+        <div id="park_notify_done" style="display:none;margin-top:14px;font-size:14px;color:var(--taupe)">✓ You're on the list — I'll be in touch!</div>
       </div>
     </div>
   </div>
@@ -320,8 +300,7 @@
 // Set to true when an event is fully booked - this hides the booking
 // form and shows a "contact me" message instead.
 const EVENT_FULL = {
-  pool: false,   // Pilates Pool Party - max 7 spots
-  park: false    // Pilates in the Park - max 20 spots
+  pool: false   // Pilates Pool Party - max 7 spots
 };
 
 window.addEventListener('scroll',()=>{
@@ -333,10 +312,7 @@ if(EVENT_FULL.pool){
   document.getElementById('poolCard').style.display='none';
   document.getElementById('poolFull').style.display='block';
 }
-if(EVENT_FULL.park){
-  document.getElementById('parkCard').style.display='none';
-  document.getElementById('parkFull').style.display='block';
-}
+
 
 
 // ===== TEST MODE =====
@@ -349,9 +325,7 @@ const TEST_MODE = false;
 const POOL_STRIPE_LINK = TEST_MODE
   ? "https://buy.stripe.com/14A4gy3bq1LybBs5iyawo02"
   : "https://buy.stripe.com/5kQdR89zOcqc6h812iawo00";
-const PARK_STRIPE_LINK = TEST_MODE
-  ? "https://buy.stripe.com/14A4gy3bq1LybBs5iyawo02"
-  : "https://buy.stripe.com/3cI3cu4fuai4cFwfXcawo01";
+
 
 function ppErr(m){document.getElementById("pp_err").textContent=m;}
 
@@ -372,24 +346,13 @@ function payPoolParty(){
   window.location.href=POOL_STRIPE_LINK+sep+"prefilled_email="+encodeURIComponent(email)+"&client_reference_id="+encodeURIComponent(ref);
 }
 
-// ===== PILATES IN THE PARK BOOKING (Stripe) =====
-function parkErr(m){document.getElementById("park_err").textContent=m;}
-
-function payPark(){
-  const name=document.getElementById("park_name").value.trim();
-  const email=document.getElementById("park_email").value.trim();
-  const phone=document.getElementById("park_phone").value.trim();
-  if(!name) return parkErr("Please enter your name.");
-  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return parkErr("Please enter a valid email.");
-  if(!phone) return parkErr("Please enter your phone number.");
-  parkErr("");
-  sessionStorage.setItem("booking_event","park");
-  sessionStorage.setItem("booking_name",name);
-  sessionStorage.setItem("booking_phone",phone);
-  sessionStorage.setItem("booking_email",email);
-  const ref=(name+"_Jun25_630PM").replace(/[^A-Za-z0-9_-]/g,"").slice(0,180);
-  const sep=PARK_STRIPE_LINK.includes("?")?"&":"?";
-  window.location.href=PARK_STRIPE_LINK+sep+"prefilled_email="+encodeURIComponent(email)+"&client_reference_id="+encodeURIComponent(ref);
+// ===== PILATES IN THE PARK - NOTIFY ME =====
+function notifyPark(){
+  const email=document.getElementById("park_notify_email").value.trim();
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return;
+  document.getElementById("park_notify_email").style.display="none";
+  document.querySelector(".soon-form button").style.display="none";
+  document.getElementById("park_notify_done").style.display="block";
 }
 
 // Check if returning from Stripe success
@@ -410,20 +373,6 @@ if(params.get("success")==="1"||document.referrer.includes("stripe.com")||docume
           method:"POST",
           headers:{"Content-Type":"application/json"},
           body:JSON.stringify({to:savedPhone,name:savedName,event:"pool"})
-        });
-      }
-    }
-  } else if(savedEvent==="park"){
-    const card=document.getElementById("parkCard");
-    if(card){
-      card.style.display="none";
-      document.getElementById("parkDoneMsg").textContent=savedName.split(" ")[0]+", your spot at Pilates in the Park on Thursday June 25 at 6:30 PM is confirmed! See you on the island!";
-      document.getElementById("parkDone").classList.add("show");
-      if(savedPhone){
-        fetch("/.netlify/functions/send-sms",{
-          method:"POST",
-          headers:{"Content-Type":"application/json"},
-          body:JSON.stringify({to:savedPhone,name:savedName,event:"park"})
         });
       }
     }
